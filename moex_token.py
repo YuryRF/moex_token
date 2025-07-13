@@ -26,6 +26,7 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
 3)  Тестируем работоспособность
     python moex_token.py 'login' 'password' 'path_driver'
 4)  Потом можно использовать в проекте, когда токен слетает. Понимаем это, когда начинаются ошибки 
+    {"message":"Validation error","http_status_code":401} 
     которые повторяются n-ое количество раз вподряд.
     from moex_token import token_work
     token = token_work(login, password, path_driver, True)
@@ -149,7 +150,10 @@ def token_work(login: str, password: str, exe_path: str, change_token: bool) -> 
         try:
             b_update = driver.find_element(*BUTTON_UPDATE)
         except NoSuchElementException:
-            return set_res(True, token_s, step_s)
+            if not change_token:
+                return set_res(True, token_s, step_s)
+            else:
+                return set_res(False, "Ошибка парсинга", step_s)
 
         # только получаем токен
         if not change_token:
