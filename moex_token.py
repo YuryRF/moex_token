@@ -152,8 +152,7 @@ def token_work(login: str, password: str, exe_path: str, change_token: bool) -> 
         except NoSuchElementException:
             if not change_token:
                 return set_res(True, token_s, step_s)
-            else:
-                return set_res(False, "Ошибка парсинга", step_s)
+            return set_res(False, "Ошибка парсинга", step_s)
 
         # только получаем токен
         if not change_token:
