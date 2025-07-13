@@ -8,7 +8,7 @@
 
 0)  Устанавливаем selenium (python -m pip install selenium)
 1)  Узнаем установленную версию Chrome (google-chrome --version)
-2)  Скачиваем для своей системы для этой версии драйвер
+2)  Скачиваем для своей системы для этой версии драйвер.
     Если до версии 115, то https://sites.google.com/chromium.org/driver/downloads.
     После 115 версии можно использовать webdriver-manager, но я бы крайне не советовал!
     Основная страница: https://github.com/GoogleChromeLabs/chrome-for-testing.
