@@ -16,7 +16,9 @@
     Ищем свою версию под свою систему (chromedriver - linux64 - url), скачиваем, unzip, запоминаем путь path_driver.
 3)  Тестируем работоспособность.
     python moex_token.py 'login' 'password' 'path_driver'
-4)  Потом можно использовать в проекте, когда токен слетает. Понимаем это, когда начинаются ошибки.
+    Если указать еще 4-ый параметр, то можно сразу обновить токен
+    python moex_token.py 'login' 'password' 'path_driver' 1
+5)  Потом можно использовать в проекте, когда токен слетает. Понимаем это, когда начинаются ошибки.
     которые повторяются n-ое количество раз вподряд.
     from moex_token import token_work
     token = token_work(login, password, path_driver, True)
