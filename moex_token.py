@@ -25,6 +25,8 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
     Ищем свою версию под свою систему (chromedriver - linux64 - url), скачиваем, unzip, запоминаем путь path_driver
 3)  Тестируем работоспособность
     python moex_token.py 'login' 'password' 'path_driver'
+    Если указать еще 4-ый параметр, то можно сразу обновить токен
+    python moex_token.py 'login' 'password' 'path_driver' 1
 4)  Потом можно использовать в проекте, когда токен слетает. Понимаем это, когда начинаются ошибки 
     {"message":"Validation error","http_status_code":401} 
     которые повторяются n-ое количество раз вподряд.
@@ -176,12 +178,18 @@ def token_work(login: str, password: str, exe_path: str, change_token: bool) -> 
 
 
 if __name__ == '__main__':
-    if len(sys.argv) > 3:
-        print("Проверяем работоспособность текущих настроек парсинга")
-        print(f"login:       {sys.argv[1]}")
-        print(f"password:    {sys.argv[2]}")
-        print(f"path_driver: {sys.argv[3]}")
-        print("wait...")
-        print(f"result: {token_work(sys.argv[1], sys.argv[2], sys.argv[3], False)}")
-    else:
+    if len(sys.argv) < 4:
         print("Не все параметры переданы")
+        exit(0)
+    if len(sys.argv) == 4:
+        print(" Проверяем работоспособность текущих настроек парсинга ".center(75, "="))
+        upd = False
+    else:
+        print(" Обновляем токен ".center(75, "="))
+        upd = True
+    print(f"login:       {sys.argv[1]}")
+    print(f"password:    {sys.argv[2]}")
+    print(f"path_driver: {sys.argv[3]}")
+    print("wait...")
+    print(f"result: {token_work(sys.argv[1], sys.argv[2], sys.argv[3], upd)}")
+
