@@ -1,4 +1,4 @@
-# moex_token
+# moex_token: asinc
 Имеем логин и пароль к https://data.moex.com/. 
 Чтоб получить или сменить **token**, приходится использовать **selenium**, т.к.
 параметры генерируются **javascript**. Сперва была мысль залогиниться, получить нужные данные, а потом **requests** получать то,
@@ -36,8 +36,7 @@
     ```
     from moex_token import token_work
     
-    token = token_work(login, password, path_driver, 1)         # для синхронной
-    token = await token_work(login, password, path_driver, 1)   # для ассинхронной 
+    token = await token_work(login, password, path_driver, 1)
     if token["success"]:
         new_token, exp_token = token["message"], token["exp"]
     else:
