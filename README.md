@@ -6,11 +6,11 @@
 
 Приведу шаги для Centos7, для WIN шаги те же, команды почти такие же 
 - Устанавливаем **selenium** и **pyperclip**:
-    ```
+    ```bash
     python -m pip install selenium pyperclip
     ```
 - Узнаем установленную версию Chrome 
-    ```
+    ```bash
     google-chrome --version
     ```
 - Скачиваем для своей системы для этой версии драйвер:
@@ -21,19 +21,19 @@
     - Ищем свою версию под свою систему ```chromedriver - linux64 - url```, скачиваем, **unzip**, запоминаем путь **path_driver**
 - Тестируем работоспособность. Ответ: *ok:token* или *no:error_mess | step_error*
     - Получить токен:
-    ```
+    ```bash
     python moex_token.py 'login' 'password' 'path_driver' 0
     ```
     - Обновить токен:
-    ```
+    ```bash
     python moex_token.py 'login' 'password' 'path_driver' 1
     ```
 - Потом можно использовать в проекте, когда токен слетает. Понимаем это, когда начинаются ошибки
-    ```
+    ```json
     {"message":"Validation error","http_status_code":401}
     ```
     которые повторяются n-ое количество раз вподряд.
-    ```
+    ```python
     from moex_token import token_work
     
     token = await token_work(login, password, path_driver, 1)
