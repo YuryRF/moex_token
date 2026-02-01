@@ -1,4 +1,4 @@
-# moex_token: async
+# moex_token(async):
 Имеем логин и пароль к https://data.moex.com/. 
 Чтоб получить или сменить **token**, приходится использовать **selenium**, т.к.
 параметры генерируются **javascript**. Сперва была мысль залогиниться, получить нужные данные, а потом **requests** получать то,
@@ -8,6 +8,20 @@
 - Устанавливаем **selenium** и **pyperclip**:
     ```bash
     python -m pip install selenium pyperclip
+    ```
+- Установим еще **seleniumwire**
+    ```python
+    python -m pip install selenium-wire
+    ```
+- На Win7 у меня не получилось использовать эту библиотеку, т.к. была ошибка на этапе импорта:
+    ```bash
+    from cryptography.hazmat.bindings._rust import x509 as rust_x509
+    ImportError: DLL load failed while importing _rust: Не найдена указанная процедура.
+    ```
+- Но под **win** она и не нужна, т.к. под не возникает проблемы с буфером обмена. Под **Centos7** поставил еще 
+    ```bash
+    sudo yum install xclip
+    sudo yum install xsel
     ```
 - Узнаем установленную версию Chrome 
     ```bash
