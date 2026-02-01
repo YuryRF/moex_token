@@ -57,3 +57,4 @@
         error = token["message"]
         step = token["error"]
     ```
+- P.S. закоментируйте ```options.add_argument('--headless')``` чтоб увидеть, как это происходит в браузере.
