@@ -4,24 +4,27 @@
 параметры генерируются **javascript**. Сперва была мысль залогиниться, получить нужные данные, а потом **requests** получать то,
 что хотим. Но и там тоже возникает проблема с параметрами. Поэтому, используем **selenium** и всё.
 
-Приведу шаги для Centos7, для WIN шаги те же, команды почти такие же 
-- Устанавливаем **selenium** и **pyperclip**:
+**UPD**: Алгопак поменяли сопособ получения **token** - усложнили. Но выход был найден.
+
+Приведу шаги для Centos7, для Win7 шаги те же, команды почти такие же 
+- Устанавливаем **selenium**, **seleniumwire** и понижаем версию **blinker**(иначе ошибки):
     ```bash
-    python -m pip install selenium pyperclip
+    python -m pip install --upgrade pip
+    python -m pip install selenium selenium-wire
+    python -m pip uninstall blinker
+    python -m pip install blinker==1.7.0
     ```
-- Установим еще **seleniumwire**
-    ```python
-    python -m pip install selenium-wire
-    ```
-- На Win7 у меня не получилось использовать эту библиотеку, т.к. была ошибка на этапе импорта:
+- На Win7 была ошибка на этапе импорта, ошибка с openSSL:
     ```bash
     from cryptography.hazmat.bindings._rust import x509 as rust_x509
     ImportError: DLL load failed while importing _rust: Не найдена указанная процедура.
     ```
-- Но под **win** она и не нужна, т.к. под не возникает проблемы с буфером обмена. Под **Centos7** поставил еще 
+- Делаем следующее:
     ```bash
-    sudo yum install xclip
-    sudo yum install xsel
+    pip uninstall cryptography
+    pip install cryptography==41.0.7
+    pip uninstall pyopenssl
+    pip install pyopenssl==22.1.0
     ```
 - Узнаем установленную версию Chrome 
     ```bash
@@ -42,6 +45,10 @@
     ```bash
     python moex_token.py 'login' 'password' 'path_driver' 1
     ```
+    - Получить токен и посмотреть как это выглядит в браузере на windows:
+    ```bash
+    python moex_token.py 'login' 'password' 'path_driver' 0 0
+    ```    
 - Потом можно использовать в проекте, когда токен слетает. Понимаем это, когда начинаются ошибки
     ```json
     {"message":"Validation error","http_status_code":401}
@@ -57,4 +64,3 @@
         error = token["message"]
         step = token["error"]
     ```
-- P.S. закоментируйте ```options.add_argument('--headless')``` чтоб увидеть, как это происходит в браузере.
